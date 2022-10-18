@@ -1,0 +1,52 @@
+---
+title: "assignment 6 : Clustering"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Group G3_9 (Lab 3)
+
+-   Camilla Kuijper (6000118)
+-   Nikolas Anova (2505401)
+-   Oscar Kromhof (8170045)
+
+## Step 1:  Run the following code
+
+Run this code to get dataset with 2 features and 100 rows. We will work clustering assignment using this dataset. 
+
+```{r , echo=TRUE, results='hide', message=FALSE}
+library(tidyverse)
+clus_df <- read_csv("https://raw.githubusercontent.com/vankesteren/dav_practicals/master/12_Unsupervised_learning_Clustering/data/clusterdata.csv")
+
+```
+
+```{r, echo=FALSE }
+clus_df
+```
+
+## Step 2: A function for Euclidean distance
+
+```{r , echo=TRUE, results='hide', message=FALSE}
+#Function for calculating Euclidean distance between 2 vectors
+l2_dist <- function(x, y) {
+  sqrt(sum((x - y)^2))
+}
+```
+
+
+```{r, echo=TRUE }
+#Trying function to calculate  Euclidean distance between x1 and x2 from clus_df dataset
+l2_dist(clus_df$x1, clus_df$x2)
+```
+
+
+## Step 3: K-medians clustering algorithm
+
+
+
+## Step 4: Compare to K-means
+
+
