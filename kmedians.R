@@ -55,9 +55,10 @@ kmedians <- function(X, K, L = 5) {
 }
 
 # Result Clustering with K=3. Default iteration L = 5
-# Moreover, also can change the number iteration.
-# For example iteration 4 times, add input like this : kmedians(clus_df, 4, 4)
 clustID <- kmedians(clus_df, 3)
+
+# Moreover, also can change the number iteration.
+# For example iteration 4 times, add input like this : kmedians(clus_df, 3, 4)
 
 # Visualization result from clustering
 clus2_df <- clus_df
