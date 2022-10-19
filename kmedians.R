@@ -6,7 +6,7 @@ l2_dist <- function(x, y) {
   sqrt(sum((x - y)^2))
 }
 
-# Kmedians
+# Kmedians (X for dataset and K for number of cluster)
 kmedians <- function(X, K) {
   
   # Checking some error before starting the function
