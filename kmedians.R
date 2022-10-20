@@ -21,12 +21,12 @@ kmedians <- function(X, K, L = 3) {
   
   clus_vec <- rep(0, length.out = n_row) # vector for storing cluster number every points
   
-    
+  
   #Default iteration 5 times, You can change from input function
   for (l in 1:L) {
     
     # Calculate median every clusters
-    med_centroid <- X_temp %>% group_by(clusters) %>% summarize_all(funs(median))  
+    med_centroid <- X_temp %>% group_by(clusters) %>% summarize_all(list(med = median))  
     
     # Decide cluster by calculate Euclidean Distance and finding nearest with median centroid
     for (i in 1:n_row) {
@@ -48,17 +48,17 @@ kmedians <- function(X, K, L = 3) {
     
     # Update cluster from result of iteration before
     X_temp <- X %>% mutate(clusters = clus_vec )
-
+    
   }
-
+  
   return(clus_vec)
 }
 
 # Result Clustering with K=3. Default iteration L = 3
-clustID <- kmedians(clus_df, 3)
-
+clustID <- kmedians(clus_df, 4)
+clustID
 # Moreover, also can change the number iteration.
-# For example iteration 4 times, add input like this : kmedians(clus_df, 3, 4)
+# For example iteration 5 times, add input like this : kmedians(clus_df, 4, 5)
 
 # Visualization result from clustering
 clus2_df <- clus_df
