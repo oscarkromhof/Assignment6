@@ -38,8 +38,8 @@ l2_dist <- function(x, y) {
 
 
 ```{r, echo=TRUE }
-#Trying function to calculate  Euclidean distance between x1 and x2 from clus_df dataset
-l2_dist(clus_df$x1, clus_df$x2)
+#Try function to calculate  Euclidean distance between record/point no. 1 and 9  from clus_df dataset
+l2_dist(clus_df[1,], clus_df[9,])
 ```
 
 
