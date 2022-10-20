@@ -22,7 +22,7 @@ kmedians <- function(X, K, L = 3) {
   clus_vec <- rep(0, length.out = n_row) # vector for storing cluster number every points
   
   
-  #Default iteration 5 times, You can change from input function
+  #Default iteration 3 times, You can change from input function
   for (l in 1:L) {
     
     # Calculate median every clusters
