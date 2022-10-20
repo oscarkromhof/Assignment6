@@ -8,7 +8,7 @@ l2_dist <- function(x, y) {
 }
 
 # Kmedians
-kmedians <- function(X, K, L = 5) {
+kmedians <- function(X, K, L = 3) {
   
   # Checking some error before starting the function
   stopifnot(is.data.frame(X))    # X must be data frame
@@ -54,7 +54,7 @@ kmedians <- function(X, K, L = 5) {
   return(clus_vec)
 }
 
-# Result Clustering with K=3. Default iteration L = 5
+# Result Clustering with K=3. Default iteration L = 3
 clustID <- kmedians(clus_df, 3)
 
 # Moreover, also can change the number iteration.
