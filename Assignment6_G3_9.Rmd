@@ -44,9 +44,62 @@ l2_dist(clus_df[1,], clus_df[9,])
 
 
 ## Step 3: K-medians clustering algorithm
+```{r , echo=TRUE, results='hide', message=FALSE}
+# Kmedians Function with input X (dataframe), K (number of cluster), and optional input L (number of iteration) 
+kmedians <- function(X, K, L = 3) {
+  
+  # Checking some error before starting the function
+  stopifnot(is.data.frame(X))    # X must be data frame
+  stopifnot(is.integer(as.integer(K))) # K must be convertible to int  
+  
+  # Randomly assign X dataset to K temporary clusters
+  n_row  <- nrow(X)
+  select_vec <- rep(1:K, length.out = n_row)
+  X_temp <- X %>% mutate(clusters = sample(select_vec))
+  
+  clus_vec <- rep(0, length.out = n_row) # vector for storing cluster number every points
+  
+  
+  #Default iteration 3 times, You can change from input function
+  for (l in 1:L) {
+    
+    # Calculate median every clusters
+    med_centroid <- X_temp %>% group_by(clusters) %>% summarize_all(list(med = median))  
+    
+    # Decide cluster by calculate Euclidean Distance and finding nearest with median centroid
+    for (i in 1:n_row) {
+      
+      vec <- rep(0, length.out = K) # vector for storing 3 euc distance between a point with K med centroid
+      
+      for (j in 1:K) {
+        euc_dist <- l2_dist(med_centroid[j,2:3], X_temp[i,1:2])   # Calculate Euclidean Distance
+        vec[j] <- euc_dist # Input distance to temporary vector
+      }
+      clust <- which.min(vec)
+      clus_vec[i] <- clust 
+    }
+    
+    #If there are no change in assignment, break iteration
+    if (all(X_temp$clusters == clus_vec) == TRUE){
+      break
+    }
+    
+    # Update cluster from result of iteration before
+    X_temp <- X %>% mutate(clusters = clus_vec )
+    
+  }
+  
+  return(clus_vec)
+}
+```
 
-
+```{r, echo=TRUE }
+# Result kmedians function from clus_df dataset with 4 clusters.
+clustID <- kmedians(clus_df, 4)
+clustID
+```
 
 ## Step 4: Compare to K-means
+
 
 
