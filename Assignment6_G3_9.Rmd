@@ -18,8 +18,12 @@ knitr::opts_chunk$set(echo = TRUE)
 Run this code to get dataset with 2 features and 100 rows. We will work clustering assignment using this dataset. 
 
 ```{r , echo=TRUE, results='hide', message=FALSE}
-set.seed(123)
+
 library(tidyverse)
+library(MASS) # make sure to load mass before tidyverse to avoid conflicts!
+library(tidyverse)
+library(patchwork) # Make sure the library patchwork is installed.
+library(ggdendro)
 clus_df <- read_csv("https://raw.githubusercontent.com/vankesteren/dav_practicals/master/12_Unsupervised_learning_Clustering/data/clusterdata.csv")
 
 ```
@@ -45,15 +49,6 @@ l2_dist(clus_df[1,], clus_df[9,])
 
 
 ## Step 3: K-medians clustering algorithm
-
-This function creates based on algorithm from slide clustering 1 page 26. This is the algorithm steps from kmedians function  :
-
-1. Randomly assign examples to K clusters
-2. Calculate the centroid (per-feature median) for each cluster
-3. Assign each example to the cluster belonging to its closest centroid
-4. If the assignments changed, go to step 2, else stop
-
-
 ```{r , echo=TRUE, results='hide', message=FALSE}
 # Kmedians Function with input X (dataframe), K (number of cluster), and optional input L (number of iteration) 
 kmedians <- function(X, K, L = 3) {
@@ -108,9 +103,48 @@ kmedians <- function(X, K, L = 3) {
 clustID <- kmedians(clus_df, 4)
 clustID
 ```
-Moreover, We also can change the number iteration. For example iteration 5 times, add input like this : kmedians(clus_df, 4, 5).
 
 ## Step 4: Compare to K-means
+```{r, echo = TRUE}
+set.seed(3)
+k_means <- as_factor(kmeans(clus_df, 3)$cluster)
+k_median <- as_factor(kmedians(clus_df, 3))
+p1 <- clus_df %>% 
+  ggplot(aes(x = x1, y = x2, colour = k_means)) + 
+  geom_point() + 
+  ggtitle("kmeans with k = 3") + 
+  theme(legend.position = "n") +
+  coord_fixed()
 
+p2 <- clus_df %>% 
+  ggplot(aes(x = x1, y = x2, colour = k_median)) + 
+  geom_point() + 
+  ggtitle("kmedian with k = 3") + 
+  theme(legend.position = "n") +
+  coord_fixed()
+p1 + p2
+```
+
+
+We see that the clusterings are very similar only on the boundaries we see that some points are grouped in neighbouring cluster. Note that the labeling (by color) of the clusters is completely arbitrary. For the next visualization we look at k = 4 and see that the two clustering algorithms show very different clusterings.
+
+```{r, echo = TRUE}
+k_means <- as_factor(kmeans(clus_df, 4)$cluster)
+k_median <- as_factor(kmedians(clus_df, 4))
+p1 <- clus_df %>% 
+  ggplot(aes(x = x1, y = x2, colour = k_means)) + 
+  geom_point() + 
+  ggtitle("kmeans with k = 4") + 
+  theme(legend.position = "n") +
+  coord_fixed()
+
+p2 <- clus_df %>% 
+  ggplot(aes(x = x1, y = x2, colour = k_median)) + 
+  geom_point() + 
+  ggtitle("kmedian with k = 4") + 
+  theme(legend.position = "n") +
+  coord_fixed()
+p1 + p2
+```
 
 
