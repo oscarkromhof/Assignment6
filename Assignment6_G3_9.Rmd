@@ -18,12 +18,9 @@ knitr::opts_chunk$set(echo = TRUE)
 Run this code to get dataset with 2 features and 100 rows. We will work clustering assignment using this dataset. 
 
 ```{r , echo=TRUE, results='hide', message=FALSE}
+library(tidyverse)
+library(patchwork)
 
-library(tidyverse)
-library(MASS) # make sure to load mass before tidyverse to avoid conflicts!
-library(tidyverse)
-library(patchwork) # Make sure the library patchwork is installed.
-library(ggdendro)
 clus_df <- read_csv("https://raw.githubusercontent.com/vankesteren/dav_practicals/master/12_Unsupervised_learning_Clustering/data/clusterdata.csv")
 
 ```
