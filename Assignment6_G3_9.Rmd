@@ -46,6 +46,14 @@ l2_dist(clus_df[1,], clus_df[9,])
 
 
 ## Step 3: K-medians clustering algorithm
+
+This function creates based on algorithm from slide clustering 1 page 26. This is the algorithm steps from kmedians function  :
+
+1. Randomly assign examples to K clusters
+2. Calculate the centroid (per-feature median) for each cluster
+3. Assign each example to the cluster belonging to its closest centroid
+4. If the assignments changed, go to step 2, else stop
+
 ```{r , echo=TRUE, results='hide', message=FALSE}
 # Kmedians Function with input X (dataframe), K (number of cluster), and optional input L (number of iteration) 
 kmedians <- function(X, K, L = 3) {
@@ -100,6 +108,7 @@ kmedians <- function(X, K, L = 3) {
 clustID <- kmedians(clus_df, 4)
 clustID
 ```
+Moreover, We also can change the number iteration. For example iteration 5 times, add input like this : kmedians(clus_df, 4, 5).
 
 ## Step 4: Compare to K-means
 ```{r, echo = TRUE}
