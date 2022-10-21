@@ -18,6 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Run this code to get dataset with 2 features and 100 rows. We will work clustering assignment using this dataset. 
 
 ```{r , echo=TRUE, results='hide', message=FALSE}
+set.seed(123)
 library(tidyverse)
 clus_df <- read_csv("https://raw.githubusercontent.com/vankesteren/dav_practicals/master/12_Unsupervised_learning_Clustering/data/clusterdata.csv")
 
